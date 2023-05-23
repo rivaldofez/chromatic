@@ -66,7 +66,8 @@ struct GameView: View {
                         Text("Restart")
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.primaryAccentLabel)
+                            .background(Color.primaryAccent)
+                            .foregroundColor(.primaryButtonLabel)
                             .cornerRadius(16)
                     }
                     
@@ -77,7 +78,8 @@ struct GameView: View {
                         Text("Finish")
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.primaryAccentLabel)
+                            .background(Color.primaryAccent)
+                            .foregroundColor(.primaryButtonLabel)
                             .cornerRadius(16)
                     }
                 }
@@ -89,7 +91,8 @@ struct GameView: View {
                     Text("Start")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.primaryAccentLabel)
+                        .background(Color.primaryAccent)
+                        .foregroundColor(.primaryButtonLabel)
                         .cornerRadius(16)
                 }
                 .padding()
