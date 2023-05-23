@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var gameViewModel: GameViewModel
     @State var username: String = ""
+    @State var fullname: String = ""
+    @State var alertErrorMessage: String = ""
+    
     let columns = [
         GridItem(.flexible(), spacing: 15),
         GridItem(.flexible(), spacing: 15)
     ]
+    
+    @State var isShowGameView: Bool = false
+    @State var isShowAlert: Bool = false
     
     private let colorItems: [Color] = [.primaryAccent, .primaryAccent, .primaryAccent, .secondaryAccent]
     
@@ -49,8 +56,28 @@ struct HomeView: View {
                 .font(.system(.title3))
                 .padding(.top, 24)
             
+            TextField("Fullname", text: self.$fullname)
+                .padding(12)
+                .overlay{
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.primaryAccent)
+                }
+                .font(.system(.title3))
+                .padding(.top, 24)
+            
             Button {
-                
+                if(validateForm()){
+                    showAlert(isActive: true, message: "Field cannot be empty, please complete all field and try again!")
+                } else {
+                    gameViewModel.saveNewUser(username: username, fullname: fullname) { result in
+                        switch(result) {
+                        case .success():
+                            isShowGameView = true
+                        case .failure(_):
+                            showAlert(isActive: true, message: "Username exist, please try again with another username")
+                        }
+                    }
+                }
             } label: {
                 Text("Start")
                     .padding()
@@ -61,6 +88,11 @@ struct HomeView: View {
                     .font(.system(.body).bold())
             }
             .padding(.top, 24)
+            .alert(alertErrorMessage, isPresented: $isShowAlert) {
+                Button("OK", role: .cancel){
+                    isShowAlert = false
+                }
+            }
             
             HStack {
                 Button {
@@ -92,6 +124,9 @@ struct HomeView: View {
             .padding(.top, 24)
 
         }
+        .fullScreenCover(isPresented: $isShowGameView, content: {
+            GameView()
+        })
         .padding(.horizontal)
         .onAppear {
 
@@ -100,6 +135,16 @@ struct HomeView: View {
         
         
         
+    }
+    
+    
+    func validateForm() -> Bool {
+        return username.isEmpty || fullname.isEmpty
+    }
+    
+    func showAlert(isActive: Bool, message: String){
+        isShowAlert = isActive
+        self.alertErrorMessage = message
     }
 }
 

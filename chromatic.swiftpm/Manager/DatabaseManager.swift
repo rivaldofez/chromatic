@@ -9,24 +9,45 @@ import Foundation
 import RealmSwift
 
 class DatabaseManager {
+    enum DatabaseError: Error {
+        case usernameExist
+        case failedToFetchData
+        case cannotCreateDatabase
+        case failedToSaveUser
+    }
+    
+    
     static let shared = DatabaseManager()
     
-    func saveNewUser(username: String, fullname: String, bio: String = ""){
-        let realm = try! Realm()
-        
-        let user = UserEntity()
-        user.username = username
-        user.fullname = fullname
-        user.bio = bio
-        user.games = List<GameEntity>()
+    func saveNewUser(username: String, fullname: String, bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
         
         do {
-            try realm.write {
-                realm.add(user)
+            let realm = try Realm()
+            
+            let user = UserEntity()
+            user.username = username
+            user.fullname = fullname
+            user.bio = bio
+            user.games = List<GameEntity>()
+            
+            if getUserDataByUsername(username: username) == nil {
+                do {
+                    try realm.write {
+                        realm.add(user)
+                    }
+                    completion(.success(()))
+                } catch {
+                    completion(.failure(DatabaseError.failedToSaveUser))
+                }
+            } else {
+                completion(.failure(DatabaseError.usernameExist))
             }
-        } catch let error as NSError {
-            print(error.localizedDescription)
+            
+            
+        } catch {
+            completion(.failure(DatabaseError.cannotCreateDatabase))
         }
+        
     }
     
     func getUserData() -> [UserEntity] {
@@ -36,6 +57,15 @@ class DatabaseManager {
             .sorted(byKeyPath: "username", ascending: false)
         
         return dataUser.map { $0 }
+    }
+    
+    func getUserDataByUsername(username: String) -> UserEntity? {
+        let realm = try! Realm()
+        
+        let dataUser = realm.objects(UserEntity.self)
+            .where { $0.username == username }
+        
+        return dataUser.map { $0 }.first
     }
     
     func getGameData() -> [GameEntity] {

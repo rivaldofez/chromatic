@@ -40,6 +40,10 @@ class GameViewModel: ObservableObject {
     @Published var currentModifier: Double = 0.1
     
     
+    func saveNewUser(username: String, fullname: String, bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
+        DatabaseManager.shared.saveNewUser(username: username, fullname: fullname, completion: completion)
+    }
+    
     func generateAnswer(){
         self.currentAnswer = Int.random(in: 1...currentItemsNum)
     }
