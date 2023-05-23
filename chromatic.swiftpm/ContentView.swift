@@ -1,27 +1,52 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var vm = GameViewModel()
+    
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    private let width: Double = 250
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-                .onAppear {
-//                    DatabaseManager.shared.saveNewUser(username: "rivaldo", fullname: "Rivaldo Fernandes", bio: "Ini Test")
-//
-//                    DatabaseManager.shared.saveNewUser(username: "axel", fullname: "Axelinus", bio: "Ini Axel")
-                    
-//                    DatabaseManager.shared.addNewGame(username: "rivaldo", level: 8)
-//
-//                    DatabaseManager.shared.addNewGame(username: "axel", level: 13)
-                    
-//                    print(DatabaseManager.shared.getUserData())
-                    
-                    print(DatabaseManager.shared.getGameData())
-                    
-                    
+            Text("\(vm.time)")
+                .font(.system(size: 70, weight: .medium, design: .rounded))
+                .padding()
+                .frame(width: width)
+                .background(.thinMaterial)
+                .cornerRadius(20)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray, lineWidth: 4)
                 }
+                .alert("Timer Done!", isPresented: $vm.showingAlert) {
+                    Button("Continue", role: .cancel){
+                        
+                    }
+                }
+            
+            Slider(value: $vm.minutes, in: 1...10, step: 1)
+                .padding()
+                .frame(width: width)
+                .disabled(vm.isActive)
+                .animation(.easeInOut, value: vm.minutes)
+            
+            HStack(spacing: 50){
+                Button("Start"){
+                    vm.start(minutes: vm.minutes)
+                }
+                .disabled(vm.isActive)
+                
+                Button("Reset"){
+                    vm.reset()
+                }
+                .tint(.red)
+
+            }
+            .frame(width: width)
+        }
+        .onReceive(timer) { _ in
+            vm.updateCountdown()
         }
     }
 }

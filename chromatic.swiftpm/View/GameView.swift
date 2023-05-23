@@ -39,7 +39,7 @@ struct GameView: View {
                 }
                 .padding()
                 
-            GridGameView()
+            GridGameView(numColumn: 10, answer: 40, baseColor: .red, answerColor: .blue)
                 .frame(maxHeight: .infinity)
             
             
@@ -52,7 +52,7 @@ struct GameView: View {
                     Text("Restart")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.primaryAccent)
+                        .background(Color.primaryAccentLabel)
                         .cornerRadius(16)
                 }
                 
@@ -61,7 +61,7 @@ struct GameView: View {
                     Text("Finish")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.primaryAccent)
+                        .background(Color.primaryAccentLabel)
                         .cornerRadius(16)
                 }
             }
