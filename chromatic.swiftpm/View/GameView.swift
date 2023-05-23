@@ -11,6 +11,9 @@ import HalfASheet
 
 struct GameView: View {
     @EnvironmentObject var gameViewModel: GameViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
+    
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var isShowResult: Bool = false
     @State private var isShowAlertRestart: Bool = false
@@ -22,7 +25,7 @@ struct GameView: View {
                 VStack {
                     
                     BackButtonView {
-                        print("Clicked Back")
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .padding(.leading)
                     

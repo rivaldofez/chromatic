@@ -19,6 +19,8 @@ struct HomeView: View {
     ]
     
     @State var isShowGameView: Bool = false
+    @State var isShowSettingsView: Bool = false
+    @State var isShowLeaderboardView: Bool = false
     @State var isShowAlert: Bool = false
     
     private let colorItems: [Color] = [.primaryAccent, .primaryAccent, .primaryAccent, .secondaryAccent]
@@ -96,7 +98,7 @@ struct HomeView: View {
             
             HStack {
                 Button {
-                    
+                    isShowSettingsView = true
                 } label: {
                     Text("Settings")
                         .padding()
@@ -108,7 +110,7 @@ struct HomeView: View {
                 }
                 
                 Button {
-                    
+                    isShowLeaderboardView = true
                 } label: {
                     Text("Leaderboard")
                         .padding()
@@ -126,6 +128,12 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $isShowGameView, content: {
             GameView()
+        })
+        .fullScreenCover(isPresented: $isShowSettingsView, content: {
+            SettingsView()
+        })
+        .fullScreenCover(isPresented: $isShowLeaderboardView, content: {
+            LeaderboardView()
         })
         .padding(.horizontal)
         .onAppear {
