@@ -20,6 +20,7 @@ struct GridGameView: View {
         LazyVGrid(columns: columns, spacing: 15) {
             ForEach(1...gameViewModel.currentItemsNum, id: \.self){ number in
                 Button {
+//                    action(true)
                     action(number == gameViewModel.currentAnswer)
                 } label: {
                     Circle()

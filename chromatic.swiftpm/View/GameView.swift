@@ -47,6 +47,7 @@ struct GameView: View {
                 
             GridGameView { result in
                 print(result)
+                gameViewModel.currentLevel = gameViewModel.currentLevel + 1
                 
             }
                 .frame(maxHeight: .infinity)

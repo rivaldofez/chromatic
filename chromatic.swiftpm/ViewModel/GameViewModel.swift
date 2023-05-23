@@ -26,6 +26,8 @@ class GameViewModel: ObservableObject {
         didSet {
             currentColumnNum = currentLevel + 1
             currentItemsNum = (currentLevel + 1) * (currentLevel + 1)
+            generateColor()
+            generateAnswer()
         }
     }
     @Published var currentColumnNum: Int = 2
@@ -43,7 +45,7 @@ class GameViewModel: ObservableObject {
         let red = Double.random(in: 0...255) / 255
         let green = Double.random(in: 0...255) / 255
         let blue = Double.random(in: 0...255) / 255
-        let modifier = 0.5
+        let modifier = 0.1
         
         
         print(red)
