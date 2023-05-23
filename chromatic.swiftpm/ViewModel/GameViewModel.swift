@@ -11,8 +11,8 @@ import Foundation
 class GameViewModel: ObservableObject {
     @Published var isActive = false
     @Published var showingAlert = false
-    @Published var time = "5:00"
-    @Published var minutes: Float = 5.0 {
+    @Published var time = "1:00"
+    @Published var minutes: Float = 1.0 {
         didSet {
             self.time = "\(Int(minutes)):00"
         }

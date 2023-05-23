@@ -13,12 +13,10 @@ import SwiftUI
 struct GridGameView: View {
     
     @Binding var numColumn: Int
-    
     @State var numItems: Int
     var answer: Int
     @State var baseColor: Color
     @State var answerColor: Color
-    
     @State private var columns: [GridItem]
     
     init(numColumn: Binding<Int>, answer: Int, baseColor: Color, answerColor: Color) {
@@ -56,8 +54,8 @@ struct GridGameView: View {
     }
 }
 
-//struct GameGridItem_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GridGameView(numColumn: .constant(10), answer: 20, baseColor: .red, answerColor: .blue)
-//    }
-//}
+struct GameGridItem_Previews: PreviewProvider {
+    static var previews: some View {
+        GridGameView(numColumn: .constant(10), answer: 20, baseColor: .red, answerColor: .blue)
+    }
+}

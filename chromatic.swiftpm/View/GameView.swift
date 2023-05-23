@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 
 struct GameView: View {
+    @StateObject private var vm = GameViewModel()
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
+    
     @State var columnNum = 3
     var body: some View {
         VStack {
@@ -26,7 +31,7 @@ struct GameView: View {
             Text("Level : 1")
                 .font(.system(.title2).bold())
             
-            Text("01:00")
+            Text("\(vm.time)")
                 .font(.system(.title).bold())
                 .padding(.vertical, 12)
                 .padding(.horizontal, 32)
@@ -46,28 +51,54 @@ struct GameView: View {
 
             Spacer()
             
-            HStack {
+            
+            
+            if vm.isActive {
+                HStack {
+                    Button {
+                        columnNum = columnNum + 1
+                        print(columnNum)
+                    } label: {
+                        Text("Restart")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.primaryAccentLabel)
+                            .cornerRadius(16)
+                    }
+                    
+                    Button {
+                        vm.reset()
+                        
+                    } label: {
+                        Text("Finish")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.primaryAccentLabel)
+                            .cornerRadius(16)
+                    }
+                }
+                .padding()
+            } else {
                 Button {
-                    columnNum = columnNum + 1
-                    print(columnNum)
+                    vm.start(minutes: vm.minutes)
                 } label: {
-                    Text("Restart")
+                    Text("Start")
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.primaryAccentLabel)
                         .cornerRadius(16)
                 }
-                
-                Button {
-                } label: {
-                    Text("Finish")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.primaryAccentLabel)
-                        .cornerRadius(16)
-                }
+                .padding()
             }
-            .padding()
+            
+            
+
+            
+            
+            
+        }
+        .onReceive(timer) { _ in
+            vm.updateCountdown()
         }
     }
 }

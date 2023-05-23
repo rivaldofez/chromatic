@@ -31,6 +31,7 @@ struct ContentView: View {
                 .disabled(vm.isActive)
                 .animation(.easeInOut, value: vm.minutes)
             
+            
             HStack(spacing: 50){
                 Button("Start"){
                     vm.start(minutes: vm.minutes)
