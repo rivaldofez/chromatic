@@ -25,17 +25,18 @@ class GameViewModel: ObservableObject {
     @Published var currentLevel: Int = 1 {
         didSet {
             currentColumnNum = currentLevel + 1
+            currentItemsNum = (currentLevel + 1) * (currentLevel + 1)
         }
     }
     @Published var currentColumnNum: Int = 2
+    @Published var currentItemsNum: Int = 4
     @Published var currentBaseColor: Color = .red
     @Published var currentAnswerColor: Color = .blue
     @Published var currentAnswer: Int = -1
     
     
     func generateAnswer(){
-        let maxItems = currentColumnNum * currentColumnNum
-        self.currentAnswer = Int.random(in: 1...maxItems)
+        self.currentAnswer = Int.random(in: 1...currentItemsNum)
     }
     
     func generateColor(){

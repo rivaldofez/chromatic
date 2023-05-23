@@ -11,48 +11,36 @@ import Foundation
 import SwiftUI
 
 struct GridGameView: View {
-    @Binding var numColumn: Int
-    @State var numItems: Int
-    var answer: Int
-    @State var baseColor: Color
-    @State var answerColor: Color
-    @State private var columns: [GridItem]
+    @EnvironmentObject var gameViewModel: GameViewModel
+    @State private var columns: [GridItem] = []
     
     var action: (_ resultAnswer: Bool) -> Void
     
-    init(numColumn: Binding<Int>, answer: Int, baseColor: Color, answerColor: Color, action: @escaping (_ resultAnswer: Bool) -> Void) {
-        self._numColumn = numColumn
-        self.numItems =  numColumn.wrappedValue * numColumn.wrappedValue
-        self.answer = answer
-        self.baseColor = baseColor
-        self.answerColor = answerColor
-        self.columns = Array(repeating: .init(.flexible()), count: numColumn.wrappedValue)
-        self.action = action
-    }
-    
     var body: some View {
         LazyVGrid(columns: columns, spacing: 15) {
-            ForEach(1...self.numItems, id: \.self){ number in
+            ForEach(1...gameViewModel.currentItemsNum, id: \.self){ number in
                 Button {
-                    action(number == answer)
+                    action(number == gameViewModel.currentAnswer)
                 } label: {
                     Circle()
-                        .foregroundColor(number == answer ? answerColor : baseColor)
+                        .foregroundColor(number == gameViewModel.currentAnswer ? gameViewModel.currentAnswerColor : gameViewModel.currentBaseColor)
                 }
             }
         }
         .padding(.horizontal, 50)
-        .onChange(of: numColumn) { _ in
-            self.columns = Array(repeating: .init(.flexible()), count: numColumn)
-            self.numItems = numColumn * numColumn
+        .onChange(of: gameViewModel.currentColumnNum) { newColumn in
+            self.columns = Array(repeating: .init(.flexible()), count: newColumn)
+        }
+        .onAppear {
+            self.columns = Array(repeating: .init(.flexible()), count: gameViewModel.currentColumnNum)
         }
     }
 }
 
-struct GameGridItem_Previews: PreviewProvider {
-    static var previews: some View {
-        GridGameView(numColumn: .constant(10), answer: 20, baseColor: .red, answerColor: .blue, action: { result in
-            
-        })
-    }
-}
+//struct GameGridItem_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GridGameView(numColumn: .constant(10), answer: 20, baseColor: .red, answerColor: .blue, action: { result in
+//
+//        })
+//    }
+//}

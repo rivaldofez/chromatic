@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct GameView: View {
-    @StateObject private var vm = GameViewModel()
+    @EnvironmentObject var gameViewModel: GameViewModel
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     
@@ -31,7 +31,7 @@ struct GameView: View {
             Text("Level : 1")
                 .font(.system(.title2).bold())
             
-            Text("\(vm.time)")
+            Text("\(gameViewModel.time)")
                 .font(.system(.title).bold())
                 .padding(.vertical, 12)
                 .padding(.horizontal, 32)
@@ -45,7 +45,7 @@ struct GameView: View {
                 }
                 .padding()
                 
-            GridGameView(numColumn: $vm.currentColumnNum, answer: vm.currentAnswer, baseColor: vm.currentBaseColor, answerColor: vm.currentAnswerColor) { result in
+            GridGameView { result in
                 print(result)
                 
             }
@@ -53,7 +53,7 @@ struct GameView: View {
             
             Spacer()
             
-            if vm.isActive {
+            if gameViewModel.isActive {
                 HStack {
                     Button {
                         columnNum = columnNum + 1
@@ -67,7 +67,7 @@ struct GameView: View {
                     }
                     
                     Button {
-                        vm.reset()
+                        gameViewModel.reset()
                         
                     } label: {
                         Text("Finish")
@@ -80,7 +80,7 @@ struct GameView: View {
                 .padding()
             } else {
                 Button {
-                    vm.start(minutes: vm.minutes)
+                    gameViewModel.start(minutes: gameViewModel.minutes)
                 } label: {
                     Text("Start")
                         .padding()
@@ -92,11 +92,11 @@ struct GameView: View {
             }
         }
         .onReceive(timer) { _ in
-            vm.updateCountdown()
+            gameViewModel.updateCountdown()
         }
         .onAppear{
-            vm.generateColor()
-            vm.generateAnswer()
+            gameViewModel.generateColor()
+            gameViewModel.generateAnswer()
         }
     }
 }
