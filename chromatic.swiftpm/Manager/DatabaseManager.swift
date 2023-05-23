@@ -38,6 +38,17 @@ class DatabaseManager {
         return dataUser.map { $0 }
     }
     
+    func getGameData() -> [GameEntity] {
+        let realm = try! Realm()
+        
+        let resultGame = realm.objects(GameEntity.self)
+            .sorted(byKeyPath: "level", ascending: false)
+            .distinct(by: ["username"])
+        
+        
+        return resultGame.map { $0 }
+    }
+    
     
     func addNewGame(username: String, level: Int){
         let realm = try! Realm()
@@ -49,6 +60,7 @@ class DatabaseManager {
             let game = GameEntity()
             game.id = UUID().uuidString
             game.level = level
+            game.username = username
             
             do {
                 try realm.write {

@@ -8,10 +8,19 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
                 .onAppear {
-//                    DatabaseManager.shared.saveNewUser(username: "rivaldo", fullname: "Rivaldo Fernandes", bio: "Ini nyoba pertama")
-                    DatabaseManager.shared.addNewGame(username: "rivaldo", level: 10)
+//                    DatabaseManager.shared.saveNewUser(username: "rivaldo", fullname: "Rivaldo Fernandes", bio: "Ini Test")
+//
+//                    DatabaseManager.shared.saveNewUser(username: "axel", fullname: "Axelinus", bio: "Ini Axel")
                     
-                    print(DatabaseManager.shared.getUserData())
+//                    DatabaseManager.shared.addNewGame(username: "rivaldo", level: 8)
+//
+//                    DatabaseManager.shared.addNewGame(username: "axel", level: 13)
+                    
+//                    print(DatabaseManager.shared.getUserData())
+                    
+                    print(DatabaseManager.shared.getGameData())
+                    
+                    
                 }
         }
     }

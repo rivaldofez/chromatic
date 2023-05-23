@@ -11,4 +11,5 @@ import RealmSwift
 class GameEntity: Object {
     @Persisted var level: Int = 0
     @Persisted var id: String
+    @Persisted var username: String
 }
