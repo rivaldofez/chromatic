@@ -19,7 +19,7 @@ struct GameView: View {
                     Image(systemName: "chevron.left")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
+                        .frame(width: 25, height: 25)
                         .padding()
                         .background(.gray.opacity(0.3))
                         .clipShape(Circle())
@@ -27,24 +27,13 @@ struct GameView: View {
                 Spacer()
             }
             
-            Group {
-                Text("Please")
-                    .font(.system(.title).bold())
-                +
-                Text(" Choose")
-                    .font(.system(.title).bold())
-                    .foregroundColor(.blue)
-                +
-                Text(" the")
-                    .font(.system(.title).bold())
-                +
-                Text(" Different Color")
-                    .font(.system(.title).bold())
-                    .foregroundColor(.blue)
-            }
+            Text("Please \(Text("Choose").foregroundColor(Color.blue)) the \(Text("Different Color").foregroundColor(Color.blue))")
+                .font(.system(.title2).bold())
+                .padding(.vertical)
+                .multilineTextAlignment(.center)
             
             Text("Level : 1")
-                .font(.system(.title).bold())
+                .font(.system(.title2).bold())
             
             Text("01:00")
                 .font(.system(.title).bold())
@@ -52,7 +41,9 @@ struct GameView: View {
                 .background(.blue)
                 .cornerRadius(16)
             
-            Spacer()
+            
+            GridGameView()
+            
             
             HStack {
                 Button {

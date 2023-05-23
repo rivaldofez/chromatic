@@ -56,13 +56,7 @@ struct HomeView: View {
 
         }
         .onAppear {
-            
-            print("woiuu")
-            
-//            print(CoreDataManager.shared.getUsers())
-            CoreDataManager.shared.registerUser(username: "rivaldo", name: "Rivaldo Fernandes")
-            
-            
+
         }
         
         
