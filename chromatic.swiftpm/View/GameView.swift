@@ -16,7 +16,6 @@ struct GameView: View {
     @State private var isShowAlertRestart: Bool = false
     
     
-    @State var columnNum = 3
     var body: some View {
         GeometryReader { screen in
             ZStack{
@@ -90,8 +89,7 @@ struct GameView: View {
                             
                             Button {
                                 withAnimation {
-                                    gameViewModel.reset()
-                                    gameViewModel.showingAlert = true
+                                    gameViewModel.finishGame()
                                 }
                                 
                             } label: {

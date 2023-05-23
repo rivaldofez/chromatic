@@ -9,6 +9,7 @@ import SwiftUI
 
 extension Color {
     static let primaryAccent = Color("PrimaryAccent")
+    static let secondaryAccent = Color("SecondaryAccent")
     static let primaryAccentLabel = Color("PrimaryAccentLabel")
     static let primaryLabel = Color("PrimaryLabel")
     static let primaryButtonLabel = Color("PrimaryButtonLabel")

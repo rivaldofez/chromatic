@@ -78,13 +78,20 @@ class GameViewModel: ObservableObject {
         currentLevel = 1
     }
     
+    func finishGame() {
+        DatabaseManager.shared.addNewGame(username: "rivaldo", level: currentLevel)
+        reset()
+        
+        print(DatabaseManager.shared.getGameData())
+    }
+    
     func updateCountdown(){
         guard isActive else { return }
         
         let now = Date()
         let diff = endDate.timeIntervalSince1970 - now.timeIntervalSince1970
         if diff <= 0 {
-            reset()
+            finishGame()
             self.isActive = false
             self.showingAlert = true
             return
