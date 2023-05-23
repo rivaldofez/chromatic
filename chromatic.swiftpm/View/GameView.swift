@@ -7,104 +7,138 @@
 
 import Foundation
 import SwiftUI
+import HalfASheet
 
 struct GameView: View {
     @EnvironmentObject var gameViewModel: GameViewModel
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
+    @State private var isShowResult: Bool = false
+    @State private var isShowAlertRestart: Bool = false
     
     
     @State var columnNum = 3
     var body: some View {
-        VStack {
-            
-            BackButtonView {
-                print("Clicked Back")
-            }
-            .padding(.leading)
-            
-            Text("Please \(Text("Choose").foregroundColor(.primaryAccentLabel)) the \(Text("Different Color").foregroundColor(.primaryAccentLabel))")
-                .font(.system(.title2).bold())
-                .padding(.vertical)
-                .multilineTextAlignment(.center)
-            
-            Text("Level : \(gameViewModel.currentLevel)")
-                .font(.system(.title2).bold())
-            
-            Text("\(gameViewModel.time)")
-                .font(.system(.title).bold())
-                .padding(.vertical, 12)
-                .padding(.horizontal, 32)
-                .foregroundColor(.primaryAccent)
-                .background(.gray.opacity(0.2))
-                .cornerRadius(16)
-                .overlay{
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.primaryAccent)
-
-                }
-                .padding()
-                
-            GridGameView { result in
-                if result{
-                    gameViewModel.currentLevel = gameViewModel.currentLevel + 1
-                } else {
-                    gameViewModel.reset()
-                }
-            }
-            .disabled(!gameViewModel.isActive)
-                .frame(maxHeight: .infinity)
-            
-            Spacer()
-            
-            if gameViewModel.isActive {
-                HStack {
-                    Button {
-                        gameViewModel.reset()
+        GeometryReader { screen in
+            ZStack{
+                VStack {
                     
-                    } label: {
-                        Text("Restart")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.primaryAccent)
-                            .foregroundColor(.primaryButtonLabel)
-                            .cornerRadius(16)
+                    BackButtonView {
+                        print("Clicked Back")
                     }
+                    .padding(.leading)
                     
-                    Button {
-                        gameViewModel.reset()
-                        
-                    } label: {
-                        Text("Finish")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.primaryAccent)
-                            .foregroundColor(.primaryButtonLabel)
-                            .cornerRadius(16)
-                    }
-                }
-                .padding()
-            } else {
-                Button {
-                    gameViewModel.start(minutes: gameViewModel.minutes)
-                } label: {
-                    Text("Start")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.primaryAccent)
-                        .foregroundColor(.primaryButtonLabel)
+                    Text("Please \(Text("Choose").foregroundColor(.primaryAccentLabel)) the \(Text("Different Color").foregroundColor(.primaryAccentLabel))")
+                        .font(.system(.title2).bold())
+                        .padding(.vertical)
+                        .multilineTextAlignment(.center)
+                    
+                    Text("Level : \(gameViewModel.currentLevel)")
+                        .font(.system(.title2).bold())
+                    
+                    Text("\(gameViewModel.time)")
+                        .font(.system(.title).bold())
+                        .padding(.vertical, 12)
+                        .frame(width: 150)
+                        .foregroundColor(.primaryAccent)
+                        .background(.gray.opacity(0.2))
                         .cornerRadius(16)
+                        .overlay{
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.primaryAccent)
+
+                        }
+                        .padding()
+                        
+                    GridGameView { result in
+                            if result{
+                                    gameViewModel.currentLevel = gameViewModel.currentLevel + 1
+                            } else {
+                                gameViewModel.reset()
+                            }
+                    }
+                    .disabled(!gameViewModel.isActive)
+                    .frame(height: screen.size.height / 2)
+                        
+                    
+                    
+                    if gameViewModel.isActive {
+                        HStack {
+                            Button {
+                                withAnimation {
+                                    isShowAlertRestart = true
+                                }
+                            
+                            } label: {
+                                Text("Restart")
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.primaryAccent)
+                                    .foregroundColor(.primaryButtonLabel)
+                                    .cornerRadius(16)
+                            }
+                            .alert("Are you sure to restart the game?", isPresented: $isShowAlertRestart) {
+                                Button("Tidak", role: .cancel){
+                                    isShowAlertRestart = false
+                                }
+                                
+                                Button("Ya", role: .destructive){
+                                    withAnimation {
+                                        gameViewModel.reset()
+                                    }
+                                }
+                            }
+                            
+                            Button {
+                                withAnimation {
+                                    gameViewModel.reset()
+                                    gameViewModel.showingAlert = true
+                                }
+                                
+                            } label: {
+                                Text("Finish")
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.primaryAccent)
+                                    .foregroundColor(.primaryButtonLabel)
+                                    .cornerRadius(16)
+                            }
+                        }
+                        .padding()
+                    } else {
+                        Button {
+                            withAnimation {
+                                gameViewModel.start(minutes: gameViewModel.minutes)
+                            }
+                            
+                        } label: {
+                            Text("Start")
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.primaryAccent)
+                                .foregroundColor(.primaryButtonLabel)
+                                .cornerRadius(16)
+                        }
+                        .padding()
+                    }
                 }
-                .padding()
+                
+                HalfASheet(isPresented: $gameViewModel.showingAlert) {
+                    ResultScoreView()
+                }
+                .height(.proportional(0.5))
+                
+            }
+            .onReceive(timer) { _ in
+                gameViewModel.updateCountdown()
+            }
+            .onAppear{
+                gameViewModel.generateColor()
+                gameViewModel.generateAnswer()
             }
         }
-        .onReceive(timer) { _ in
-            gameViewModel.updateCountdown()
-        }
-        .onAppear{
-            gameViewModel.generateColor()
-            gameViewModel.generateAnswer()
-        }
+        
+        
+        
     }
 }
 

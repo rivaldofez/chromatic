@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ResultScoreView: View {
     var body: some View {
-        Text("Ini Halaman Result")
+        VStack {
+            Text("Your Highest Level: \(10)")
+                .font(.system(.title2))
+            Text("Your Lowest Level : \(4)")
+        }
     }
 }
 

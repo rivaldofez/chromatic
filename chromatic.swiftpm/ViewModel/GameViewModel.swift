@@ -24,10 +24,12 @@ class GameViewModel: ObservableObject {
     
     @Published var currentLevel: Int = 1 {
         didSet {
-            currentColumnNum = currentLevel + 1
-            currentItemsNum = (currentLevel + 1) * (currentLevel + 1)
             generateColor()
             generateAnswer()
+                currentColumnNum = currentLevel + 1
+                currentItemsNum = (currentLevel + 1) * (currentLevel + 1)
+
+            
         }
     }
     @Published var currentColumnNum: Int = 2
@@ -82,8 +84,8 @@ class GameViewModel: ObservableObject {
         let now = Date()
         let diff = endDate.timeIntervalSince1970 - now.timeIntervalSince1970
         if diff <= 0 {
+            reset()
             self.isActive = false
-            self.time = "0:00"
             self.showingAlert = true
             return
         }
