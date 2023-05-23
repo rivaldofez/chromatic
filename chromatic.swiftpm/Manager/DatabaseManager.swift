@@ -28,8 +28,6 @@ class DatabaseManager {
             
             let user = UserEntity()
             user.username = username
-            user.fullname = fullname
-            user.bio = bio
             user.games = List<GameEntity>()
             
             if getUserDataByUsername(username: username) == nil {

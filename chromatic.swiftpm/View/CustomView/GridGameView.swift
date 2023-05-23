@@ -23,8 +23,20 @@ struct GridGameView: View {
 //                    action(true)
                     action(number == gameViewModel.currentAnswer)
                 } label: {
-                    Circle()
-                        .foregroundColor(number == gameViewModel.currentAnswer ? gameViewModel.currentAnswerColor : gameViewModel.currentBaseColor)
+                    
+                    if gameViewModel.currentShapeStyle == "circle" {
+                        Circle()
+                            .foregroundColor(number == gameViewModel.currentAnswer ? gameViewModel.currentAnswerColor : gameViewModel.currentBaseColor)
+                    } else {
+                        Circle()
+                            .overlay{
+                                Rectangle()
+                                    .foregroundColor(number == gameViewModel.currentAnswer ? gameViewModel.currentAnswerColor : gameViewModel.currentBaseColor)
+                            }
+                            
+                    }
+                    
+                    
                 }
             }
         }

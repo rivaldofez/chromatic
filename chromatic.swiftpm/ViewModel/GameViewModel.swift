@@ -30,6 +30,7 @@ class GameViewModel: ObservableObject {
             generateAnswer()
                 currentColumnNum = currentLevel + 1
                 currentItemsNum = (currentLevel + 1) * (currentLevel + 1)
+            getShapeStyle()
 
             
         }
@@ -40,6 +41,7 @@ class GameViewModel: ObservableObject {
     @Published var currentAnswerColor: Color = .blue
     @Published var currentAnswer: Int = -1
     @Published var currentModifier: Double = 0.1
+    @Published var currentShapeStyle: String = "circle"
     
     func saveNewUser(username: String, fullname: String = "", bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
         DatabaseManager.shared.saveNewUser(username: username, fullname: fullname, completion: completion)
@@ -125,6 +127,14 @@ class GameViewModel: ObservableObject {
         
         self.minutes = Float(minutes)
         self.time = String(format: "%d:%02d", minutes, seconds)
+    }
+    
+    func getShapeStyle(){
+        currentShapeStyle = UserDefaults.standard.string(forKey: "shape") ?? "circle"
+    }
+    
+    func setShapeStyle(shape: String){
+        UserDefaults.standard.set(shape, forKey: "shape")
     }
     
 }
