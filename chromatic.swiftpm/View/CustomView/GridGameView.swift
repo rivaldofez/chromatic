@@ -12,21 +12,22 @@ import SwiftUI
 
 struct GridGameView: View {
     
-    var numColumn: Int
-    var numItems: Int
+    @Binding var numColumn: Int
+    
+    @State var numItems: Int
     var answer: Int
-    var baseColor: Color
-    var answerColor: Color
+    @State var baseColor: Color
+    @State var answerColor: Color
     
     @State private var columns: [GridItem]
     
-    init(numColumn: Int, answer: Int, baseColor: Color, answerColor: Color) {
-        self.numColumn = numColumn
-        self.numItems = numColumn * numColumn
+    init(numColumn: Binding<Int>, answer: Int, baseColor: Color, answerColor: Color) {
+        self._numColumn = numColumn
+        self.numItems =  numColumn.wrappedValue * numColumn.wrappedValue
         self.answer = answer
         self.baseColor = baseColor
         self.answerColor = answerColor
-        self.columns = Array(repeating: .init(.flexible()), count: numColumn)
+        self.columns = Array(repeating: .init(.flexible()), count: numColumn.wrappedValue)
     }
     
     var body: some View {
@@ -38,6 +39,9 @@ struct GridGameView: View {
                     } else {
                         print("Salah")
                     }
+                    
+                    print("In Grid Game View \(numColumn)")
+                    print("In Grid Game View lent \(columns.count)")
                 } label: {
                     Circle()
                         .foregroundColor(number == answer ? answerColor : baseColor)
@@ -45,11 +49,15 @@ struct GridGameView: View {
             }
         }
         .padding(.horizontal, 50)
+        .onChange(of: numColumn) { _ in
+            self.columns = Array(repeating: .init(.flexible()), count: numColumn)
+            self.numItems = numColumn * numColumn
+        }
     }
 }
 
-struct GameGridItem_Previews: PreviewProvider {
-    static var previews: some View {
-        GridGameView(numColumn: 10, answer: 50, baseColor: .red, answerColor: .blue)
-    }
-}
+//struct GameGridItem_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GridGameView(numColumn: .constant(10), answer: 20, baseColor: .red, answerColor: .blue)
+//    }
+//}

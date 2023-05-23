@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct GameView: View {
+    @State var columnNum = 3
     var body: some View {
         VStack {
             
@@ -39,15 +40,16 @@ struct GameView: View {
                 }
                 .padding()
                 
-            GridGameView(numColumn: 10, answer: 40, baseColor: .red, answerColor: .blue)
+            GridGameView(numColumn: $columnNum, answer: 40, baseColor: .red, answerColor: .blue)
                 .frame(maxHeight: .infinity)
-            
-            
+
+
             Spacer()
             
             HStack {
                 Button {
-                    
+                    columnNum = columnNum + 1
+                    print(columnNum)
                 } label: {
                     Text("Restart")
                         .padding()
