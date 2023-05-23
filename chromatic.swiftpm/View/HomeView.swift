@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var gameViewModel: GameViewModel
     @State var username: String = ""
-    @State var fullname: String = ""
     @State var alertErrorMessage: String = ""
     
     let columns = [
@@ -58,25 +57,16 @@ struct HomeView: View {
                 .font(.system(.title3))
                 .padding(.top, 24)
             
-            TextField("Fullname", text: self.$fullname)
-                .padding(12)
-                .overlay{
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.primaryAccent)
-                }
-                .font(.system(.title3))
-                .padding(.top, 24)
-            
             Button {
                 if(validateForm()){
                     showAlert(isActive: true, message: "Field cannot be empty, please complete all field and try again!")
                 } else {
-                    gameViewModel.saveNewUser(username: username, fullname: fullname) { result in
+                    gameViewModel.saveNewUser(username: username) { result in
                         switch(result) {
                         case .success():
                             isShowGameView = true
                         case .failure(_):
-                            showAlert(isActive: true, message: "Username exist, please try again with another username")
+                            showAlert(isActive: true, message: "Error occured while attempt user with that username, please try again.")
                         }
                     }
                 }
@@ -137,17 +127,13 @@ struct HomeView: View {
         })
         .padding(.horizontal)
         .onAppear {
-
+            
         }
-        
-        
-        
-        
     }
     
     
     func validateForm() -> Bool {
-        return username.isEmpty || fullname.isEmpty
+        return username.isEmpty
     }
     
     func showAlert(isActive: Bool, message: String){

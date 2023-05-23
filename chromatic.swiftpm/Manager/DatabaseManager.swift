@@ -14,12 +14,14 @@ class DatabaseManager {
         case failedToFetchData
         case cannotCreateDatabase
         case failedToSaveUser
+        case failedToAddGame
+        case userNotFound
     }
     
     
     static let shared = DatabaseManager()
     
-    func saveNewUser(username: String, fullname: String, bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
+    func saveNewUser(username: String, fullname: String = "", bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
         
         do {
             let realm = try Realm()
@@ -40,14 +42,11 @@ class DatabaseManager {
                     completion(.failure(DatabaseError.failedToSaveUser))
                 }
             } else {
-                completion(.failure(DatabaseError.usernameExist))
+                completion(.success(()))
             }
-            
-            
         } catch {
             completion(.failure(DatabaseError.cannotCreateDatabase))
         }
-        
     }
     
     func getUserData() -> [UserEntity] {
@@ -80,25 +79,33 @@ class DatabaseManager {
     }
     
     
-    func addNewGame(username: String, level: Int){
-        let realm = try! Realm()
+    func addNewGame(username: String, level: Int, completion: @escaping (Result<Void, Error>) -> Void){
         
-        let resultUser = realm.objects(UserEntity.self)
-            .where {  $0.username == username}
-        
-        if let user = resultUser.first {
-            let game = GameEntity()
-            game.id = UUID().uuidString
-            game.level = level
-            game.username = username
+        do {
+            let realm = try Realm()
+            let resultUser = realm.objects(UserEntity.self)
+                .where {  $0.username == username}
             
-            do {
-                try realm.write {
-                    user.games.append(game)
+            if let user = resultUser.first {
+                let game = GameEntity()
+                game.id = UUID().uuidString
+                game.level = level
+                game.username = username
+                
+                do {
+                    try realm.write {
+                        user.games.append(game)
+                    }
+                    completion(.success(()))
+                } catch {
+                    completion(.failure(DatabaseError.failedToAddGame))
                 }
-            } catch let error as NSError {
-                print(error.localizedDescription)
+            } else {
+                completion(.failure(DatabaseError.userNotFound))
             }
+            
+        } catch {
+            completion(.failure(DatabaseError.cannotCreateDatabase))
         }
     }
 }

@@ -19,6 +19,8 @@ class GameViewModel: ObservableObject {
         }
     }
     
+    @Published var currentUsername: String = ""
+    
     private var initialTime = 0
     private var endDate = Date()
     
@@ -39,9 +41,10 @@ class GameViewModel: ObservableObject {
     @Published var currentAnswer: Int = -1
     @Published var currentModifier: Double = 0.1
     
-    
-    func saveNewUser(username: String, fullname: String, bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
+    func saveNewUser(username: String, fullname: String = "", bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
         DatabaseManager.shared.saveNewUser(username: username, fullname: fullname, completion: completion)
+        
+        currentUsername = username
     }
     
     func generateAnswer(){
@@ -82,12 +85,26 @@ class GameViewModel: ObservableObject {
         currentLevel = 1
     }
     
-    func finishGame() {
-        DatabaseManager.shared.addNewGame(username: "rivaldo", level: currentLevel)
-        reset()
-        
-        print(DatabaseManager.shared.getGameData())
+    func addNewGame() {
+        DatabaseManager.shared.addNewGame(username: currentUsername, level: currentLevel) { result in
+            switch(result) {
+            case .success():
+                self.reset()
+                self.showingAlert = false
+                print(DatabaseManager.shared.getGameData())
+            case .failure(_):
+                self.showingAlert = true
+            }
+        }
     }
+    
+    
+//    func finishGame() {
+//        DatabaseManager.shared.addNewGame(username: "rivaldo", level: currentLevel)
+//        reset()
+//
+//        print(DatabaseManager.shared.getGameData())
+//    }
     
     func updateCountdown(){
         guard isActive else { return }
@@ -95,7 +112,7 @@ class GameViewModel: ObservableObject {
         let now = Date()
         let diff = endDate.timeIntervalSince1970 - now.timeIntervalSince1970
         if diff <= 0 {
-            finishGame()
+            addNewGame()
             self.isActive = false
             self.showingAlert = true
             return

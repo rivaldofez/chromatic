@@ -55,6 +55,7 @@ struct GameView: View {
                             if result{
                                     gameViewModel.currentLevel = gameViewModel.currentLevel + 1
                             } else {
+                                gameViewModel.addNewGame()
                                 gameViewModel.reset()
                             }
                     }
@@ -92,7 +93,7 @@ struct GameView: View {
                             
                             Button {
                                 withAnimation {
-                                    gameViewModel.finishGame()
+                                    gameViewModel.addNewGame()
                                 }
                                 
                             } label: {
