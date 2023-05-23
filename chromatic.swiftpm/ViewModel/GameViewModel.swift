@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 class GameViewModel: ObservableObject {
@@ -20,6 +21,37 @@ class GameViewModel: ObservableObject {
     
     private var initialTime = 0
     private var endDate = Date()
+    
+    @Published var currentLevel: Int = 1 {
+        didSet {
+            currentColumnNum = currentLevel + 1
+        }
+    }
+    @Published var currentColumnNum: Int = 2
+    @Published var currentBaseColor: Color = .red
+    @Published var currentAnswerColor: Color = .blue
+    @Published var currentAnswer: Int = -1
+    
+    
+    func generateAnswer(){
+        let maxItems = currentColumnNum * currentColumnNum
+        self.currentAnswer = Int.random(in: 1...maxItems)
+    }
+    
+    func generateColor(){
+        let red = Double.random(in: 0...255) / 255
+        let green = Double.random(in: 0...255) / 255
+        let blue = Double.random(in: 0...255) / 255
+        let modifier = 0.5
+        
+        
+        print(red)
+        print(green)
+        print(blue)
+        
+        self.currentBaseColor = Color(red: red, green: green, blue: blue)
+        self.currentAnswerColor = Color(red: red + modifier, green: green + modifier, blue: blue + modifier)
+    }
     
     
     func start(minutes: Float) {

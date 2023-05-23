@@ -45,13 +45,13 @@ struct GameView: View {
                 }
                 .padding()
                 
-            GridGameView(numColumn: $columnNum, answer: 40, baseColor: .red, answerColor: .blue)
+            GridGameView(numColumn: $vm.currentColumnNum, answer: vm.currentAnswer, baseColor: vm.currentBaseColor, answerColor: vm.currentAnswerColor) { result in
+                print(result)
+                
+            }
                 .frame(maxHeight: .infinity)
-
-
+            
             Spacer()
-            
-            
             
             if vm.isActive {
                 HStack {
@@ -90,15 +90,13 @@ struct GameView: View {
                 }
                 .padding()
             }
-            
-            
-
-            
-            
-            
         }
         .onReceive(timer) { _ in
             vm.updateCountdown()
+        }
+        .onAppear{
+            vm.generateColor()
+            vm.generateAnswer()
         }
     }
 }
