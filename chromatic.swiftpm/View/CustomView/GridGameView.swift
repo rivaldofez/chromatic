@@ -11,19 +11,28 @@ import Foundation
 import SwiftUI
 
 struct GridGameView: View {
-    var numColumn = 4
+    
+    
+    
+    
+    var numColumn = 10
     
     @State private var columns: [GridItem]
     
-    init(numColumn: Int = 4) {
+    init(numColumn: Int = 10) {
         self.numColumn = numColumn
         self.columns = Array(repeating: .init(.flexible()), count: numColumn)
     }
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 15) {
-            ForEach(1...10, id: \.self){ number in
-                Circle()
+            ForEach(1...100, id: \.self){ number in
+                
+                Button {
+                    print("clicked at \(number)")
+                } label: {
+                    Circle()
+                }
             }
         }
         .padding(.horizontal, 50)

@@ -12,22 +12,12 @@ struct GameView: View {
     var body: some View {
         VStack {
             
-            HStack {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                        .padding()
-                        .background(.gray.opacity(0.3))
-                        .clipShape(Circle())
-                }
-                Spacer()
+            BackButtonView {
+                print("Clicked Back")
             }
+            .padding(.leading)
             
-            Text("Please \(Text("Choose").foregroundColor(Color.blue)) the \(Text("Different Color").foregroundColor(Color.blue))")
+            Text("Please \(Text("Choose").foregroundColor(.primaryAccentLabel)) the \(Text("Different Color").foregroundColor(.primaryAccentLabel))")
                 .font(.system(.title2).bold())
                 .padding(.vertical)
                 .multilineTextAlignment(.center)
@@ -37,28 +27,45 @@ struct GameView: View {
             
             Text("01:00")
                 .font(.system(.title).bold())
-                .padding()
-                .background(.blue)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 32)
+                .foregroundColor(.primaryAccent)
+                .background(.gray.opacity(0.2))
                 .cornerRadius(16)
-            
-            
+                .overlay{
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.primaryAccent)
+
+                }
+                .padding()
+                
             GridGameView()
+                .frame(maxHeight: .infinity)
             
+            
+            Spacer()
             
             HStack {
                 Button {
                     
                 } label: {
                     Text("Restart")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.primaryAccent)
+                        .cornerRadius(16)
                 }
                 
                 Button {
-                    
                 } label: {
                     Text("Finish")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.primaryAccent)
+                        .cornerRadius(16)
                 }
-
             }
+            .padding()
         }
     }
 }
