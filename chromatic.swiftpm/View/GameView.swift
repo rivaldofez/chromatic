@@ -28,7 +28,7 @@ struct GameView: View {
                 .padding(.vertical)
                 .multilineTextAlignment(.center)
             
-            Text("Level : 1")
+            Text("Level : \(gameViewModel.currentLevel)")
                 .font(.system(.title2).bold())
             
             Text("\(gameViewModel.time)")
@@ -46,10 +46,13 @@ struct GameView: View {
                 .padding()
                 
             GridGameView { result in
-                print(result)
-                gameViewModel.currentLevel = gameViewModel.currentLevel + 1
-                
+                if result{
+                    gameViewModel.currentLevel = gameViewModel.currentLevel + 1
+                } else {
+                    gameViewModel.reset()
+                }
             }
+            .disabled(!gameViewModel.isActive)
                 .frame(maxHeight: .infinity)
             
             Spacer()
@@ -57,8 +60,8 @@ struct GameView: View {
             if gameViewModel.isActive {
                 HStack {
                     Button {
-                        columnNum = columnNum + 1
-                        print(columnNum)
+                        gameViewModel.reset()
+                    
                     } label: {
                         Text("Restart")
                             .padding()

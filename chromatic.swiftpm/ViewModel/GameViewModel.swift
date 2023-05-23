@@ -35,10 +35,15 @@ class GameViewModel: ObservableObject {
     @Published var currentBaseColor: Color = .red
     @Published var currentAnswerColor: Color = .blue
     @Published var currentAnswer: Int = -1
+    @Published var currentModifier: Double = 0.1
     
     
     func generateAnswer(){
         self.currentAnswer = Int.random(in: 1...currentItemsNum)
+    }
+    
+    func generateModifier(){
+        currentModifier = currentModifier - 0.01
     }
     
     func generateColor(){
@@ -65,9 +70,10 @@ class GameViewModel: ObservableObject {
     }
     
     func reset() {
-        self.minutes = Float(initialTime)
+        self.minutes = 1.0
         self.isActive = false
         self.time = "\(Int(minutes)):00"
+        currentLevel = 1
     }
     
     func updateCountdown(){
