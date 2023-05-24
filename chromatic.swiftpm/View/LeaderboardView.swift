@@ -18,7 +18,7 @@ struct LeaderboardView: View {
             }
             .padding(.leading)
             
-            Text("App Settings")
+            Text("Leaderboard")
                 .font(.system(.title).bold())
                 .padding(.bottom)
             

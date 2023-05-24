@@ -53,18 +53,18 @@ struct LeaderboardItemView: View {
         return Text("\(rank)")
             .font(.system(size: 11).weight(.light))
             .foregroundColor(
-                rank == 1 ? .yellow :
-                    (rank == 2 ? .gray :
-                        (rank == 3 ? .brown : .primaryLabel)
+                rank == 1 ? .darkGold :
+                    (rank == 2 ? .darkSilver :
+                        (rank == 3 ? .darkBronze : .primaryLabel)
                     )
             )
             .frame(width: 30, height: 30)
             .background(
                 Circle()
                     .fill(
-                        rank == 1 ? .yellow.opacity(0.5) :
-                            (rank == 2 ? .gray.opacity(0.5) :
-                                (rank == 3 ? .brown.opacity(0.5) : .gray.opacity(0.1))
+                        rank == 1 ? Color.gold :
+                            (rank == 2 ? Color.silver :
+                                (rank == 3 ? Color.bronze : .gray.opacity(0.4))
                             )
                     )
             )
