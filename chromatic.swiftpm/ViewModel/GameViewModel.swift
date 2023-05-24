@@ -30,9 +30,9 @@ class GameViewModel: ObservableObject {
     @Published var currentLevel: Int = 1 {
         didSet {
             generateColor()
-            generateAnswer()
             currentColumnNum = generateColumn(level: currentLevel)
             currentItemsNum = currentColumnNum * currentColumnNum
+            generateAnswer()
             currentModifier = currentModifier - ((Double(currentLevel / 10)) / 100)
             getShapeStyle()
         }
@@ -44,7 +44,7 @@ class GameViewModel: ObservableObject {
     @Published var currentBaseColor: Color = .red
     @Published var currentAnswerColor: Color = .blue
     @Published var currentAnswer: Int = -1
-    @Published var currentModifier: Double = 0.1
+    @Published var currentModifier: Double = 0.4
     @Published var currentShapeStyle: String = "circle"
     @Published var currentThemeStyle: Bool = true
     
