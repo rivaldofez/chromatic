@@ -33,7 +33,7 @@ struct SettingsView: View {
                 .background(.blue)
                 .clipShape(Circle())
             
-            Text("Hi, Audrina")
+            Text("Hi, \(gameViewModel.currentUsername)")
                 .font(.system(.title2))
                 .padding()
             

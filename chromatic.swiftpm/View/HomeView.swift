@@ -92,6 +92,7 @@ struct HomeView: View {
             
             HStack {
                 Button {
+                    gameViewModel.currentUsername = username
                     isShowSettingsView = true
                 } label: {
                     Text("Settings")
