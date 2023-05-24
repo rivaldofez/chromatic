@@ -15,7 +15,6 @@ struct GameView: View {
     
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var isShowResult: Bool = false
     @State private var isShowAlertRestart: Bool = false
     
     
@@ -57,6 +56,8 @@ struct GameView: View {
                             } else {
                                 gameViewModel.addNewGame()
                                 gameViewModel.reset()
+                                gameViewModel.isShowResult = true
+                                
                             }
                     }
                     .disabled(!gameViewModel.isActive)
@@ -94,6 +95,9 @@ struct GameView: View {
                             Button {
                                 withAnimation {
                                     gameViewModel.addNewGame()
+                                    gameViewModel.reset()
+                                    gameViewModel.isShowResult = true
+                                    
                                 }
                                 
                             } label: {
@@ -124,8 +128,8 @@ struct GameView: View {
                     }
                 }
                 
-                HalfASheet(isPresented: $gameViewModel.showingAlert) {
-                    ResultScoreView()
+                HalfASheet(isPresented: $gameViewModel.isShowResult) {
+                    ResultScoreView(latestLevel: gameViewModel.latestLevelAchieved)
                 }
                 .height(.proportional(0.5))
                 

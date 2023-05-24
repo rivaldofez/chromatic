@@ -11,7 +11,7 @@ import SwiftUI
 
 class GameViewModel: ObservableObject {
     @Published var isActive = false
-    @Published var showingAlert = false
+    @Published var isShowResult = false
     @Published var time = "1:00"
     @Published var minutes: Float = 1.0 {
         didSet {
@@ -24,6 +24,8 @@ class GameViewModel: ObservableObject {
     
     private var initialTime = 0
     private var endDate = Date()
+    @Published var latestLevelAchieved = 0
+    @Published var highestLevelAchieved = 0
     
     @Published var currentLevel: Int = 1 {
         didSet {
@@ -33,8 +35,6 @@ class GameViewModel: ObservableObject {
                 currentItemsNum = currentColumnNum * currentColumnNum
                 currentModifier = currentModifier - ((Double(currentLevel / 10)) / 100)
             getShapeStyle()
-
-            
         }
     }
     
@@ -75,8 +75,8 @@ class GameViewModel: ObservableObject {
     private func generateColumn(level: Int) -> Int{
         let mod = level % 10
         
-        if (mod <= 1) {
-            return 2
+        if (mod <= 0) {
+            return 11
         } else {
             return mod + 1
         }
@@ -93,6 +93,7 @@ class GameViewModel: ObservableObject {
         self.minutes = 1.0
         self.isActive = false
         self.time = "\(Int(minutes)):00"
+        latestLevelAchieved = currentLevel
         currentLevel = 1
     }
     
@@ -100,22 +101,16 @@ class GameViewModel: ObservableObject {
         DatabaseManager.shared.addNewGame(username: currentUsername, level: currentLevel) { result in
             switch(result) {
             case .success():
-                self.reset()
-                self.showingAlert = false
                 print(DatabaseManager.shared.getGameData())
-            case .failure(_):
-                self.showingAlert = true
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
     
-    
-//    func finishGame() {
-//        DatabaseManager.shared.addNewGame(username: "rivaldo", level: currentLevel)
-//        reset()
-//
-//        print(DatabaseManager.shared.getGameData())
-//    }
+    func getHighestLevel(){
+        self.highestLevelAchieved = DatabaseManager.shared.getHighestLevelByUsername(username: currentUsername)?.level ?? 0
+    }
     
     func updateCountdown(){
         guard isActive else { return }
@@ -125,7 +120,8 @@ class GameViewModel: ObservableObject {
         if diff <= 0 {
             addNewGame()
             self.isActive = false
-            self.showingAlert = true
+            self.isShowResult = true
+            self.reset()
             return
         }
         

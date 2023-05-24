@@ -65,6 +65,17 @@ class DatabaseManager {
         return dataUser.map { $0 }.first
     }
     
+    func getHighestLevelByUsername(username: String) -> GameEntity? {
+        let realm = try! Realm()
+        
+        let dataGame = realm.objects(GameEntity.self)
+            .sorted(byKeyPath: "level", ascending: false)
+            .where { $0.username == username }
+            
+        
+        return dataGame.map { $0 }.first
+    }
+    
     func getGameData() -> [GameEntity] {
         let realm = try! Realm()
         

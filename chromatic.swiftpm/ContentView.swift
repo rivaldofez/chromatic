@@ -19,7 +19,7 @@ struct ContentView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color.gray, lineWidth: 4)
                 }
-                .alert("Timer Done!", isPresented: $vm.showingAlert) {
+                .alert("Timer Done!", isPresented: $vm.isShowResult) {
                     Button("Continue", role: .cancel){
                         
                     }
