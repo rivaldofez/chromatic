@@ -109,7 +109,7 @@ struct SettingsView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(.gray.opacity(0.3), lineWidth: 1)
             )
-            .padding(.horizontal, 40)
+            .padding(.horizontal)
             .padding(.vertical)
             
             VStack(alignment: .leading, spacing: 0) {
@@ -161,7 +161,7 @@ struct SettingsView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(.gray.opacity(0.3), lineWidth: 1)
             )
-            .padding(.horizontal, 40)
+            .padding(.horizontal)
         }
         .onAppear {
             gameViewModel.getShapeStyle()
