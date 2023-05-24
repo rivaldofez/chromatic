@@ -10,11 +10,11 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var gameViewModel: GameViewModel
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
     
     
     var body: some View {
         VStack {
-            
             BackButtonView {
                 presentationMode.wrappedValue.dismiss()
             }
@@ -121,7 +121,9 @@ struct SettingsView: View {
                 Divider()
                 
                 Button {
-                    
+                    withAnimation {
+                        gameViewModel.setThemeStyle(isDark: false)
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "sun.max")
@@ -133,6 +135,16 @@ struct SettingsView: View {
                             .font(.system(.title3).weight(.medium))
                             .padding(.leading, 16)
                             .foregroundColor(.primaryLabel)
+                        
+                        Spacer()
+                        
+                        if(!gameViewModel.currentThemeStyle){
+                            Image(systemName: "checkmark")
+                                .font(.system(.title3).weight(.bold))
+                                .foregroundColor(.primaryAccentLabel)
+                                .padding(.horizontal)
+                        }
+                        
                     }.padding()
                 }
                 
@@ -140,7 +152,9 @@ struct SettingsView: View {
                 Divider()
                 
                 Button {
-                    
+                    withAnimation {
+                        gameViewModel.setThemeStyle(isDark: true)
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "moon")
@@ -152,6 +166,15 @@ struct SettingsView: View {
                             .font(.system(.title3).weight(.medium))
                             .padding(.leading, 16)
                             .foregroundColor(.primaryLabel)
+                        
+                        Spacer()
+                        
+                        if(gameViewModel.currentThemeStyle){
+                            Image(systemName: "checkmark")
+                                .font(.system(.title3).weight(.bold))
+                                .foregroundColor(.primaryAccentLabel)
+                                .padding(.horizontal)
+                        }
                     }
                     .padding()
                 }
@@ -167,6 +190,8 @@ struct SettingsView: View {
             gameViewModel.getShapeStyle()
         }
     }
+    
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

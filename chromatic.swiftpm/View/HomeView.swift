@@ -132,11 +132,10 @@ struct HomeView: View {
         })
         .padding(.horizontal)
         .onAppear {
-            
+            gameViewModel.getThemeStyle()
         }
 
     }
-    
     
     func isFormValid() -> Bool {
         return !username.isEmpty

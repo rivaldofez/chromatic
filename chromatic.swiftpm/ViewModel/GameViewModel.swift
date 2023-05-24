@@ -46,6 +46,7 @@ class GameViewModel: ObservableObject {
     @Published var currentAnswer: Int = -1
     @Published var currentModifier: Double = 0.1
     @Published var currentShapeStyle: String = "circle"
+    @Published var currentThemeStyle: Bool = true
     
     
     func saveNewUser(username: String, fullname: String = "", bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
@@ -141,6 +142,18 @@ class GameViewModel: ObservableObject {
     func setShapeStyle(shape: String){
         UserDefaults.standard.set(shape, forKey: "shape")
         getShapeStyle()
+    }
+    
+    func getThemeStyle() {
+        currentThemeStyle = UserDefaults.standard.bool(forKey: "theme")
+        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first!.overrideUserInterfaceStyle = currentThemeStyle ? .dark : .light
+    }
+    
+    func setThemeStyle(isDark: Bool){
+        UserDefaults.standard.set(isDark, forKey: "theme")
+        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first!.overrideUserInterfaceStyle = isDark ? .dark : .light
+        currentThemeStyle = isDark
+        
     }
     
     func getGameData(){
