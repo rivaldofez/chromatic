@@ -29,8 +29,9 @@ class GameViewModel: ObservableObject {
         didSet {
             generateColor()
             generateAnswer()
-                currentColumnNum = currentLevel + 1
-                currentItemsNum = (currentLevel + 1) * (currentLevel + 1)
+                currentColumnNum = generateColumn(level: currentLevel)
+                currentItemsNum = currentColumnNum * currentColumnNum
+                currentModifier = currentModifier - ((Double(currentLevel / 10)) / 100)
             getShapeStyle()
 
             
@@ -46,6 +47,7 @@ class GameViewModel: ObservableObject {
     @Published var currentModifier: Double = 0.1
     @Published var currentShapeStyle: String = "circle"
     
+    
     func saveNewUser(username: String, fullname: String = "", bio: String = "", completion: @escaping (Result<Void, Error>) -> Void){
         DatabaseManager.shared.saveNewUser(username: username, fullname: fullname, completion: completion)
         
@@ -55,16 +57,11 @@ class GameViewModel: ObservableObject {
     func generateAnswer(){
         self.currentAnswer = Int.random(in: 1...currentItemsNum)
     }
-    
-    func generateModifier(){
-        currentModifier = currentModifier - 0.01
-    }
-    
+
     func generateColor(){
         let red = Double.random(in: 0...255) / 255
         let green = Double.random(in: 0...255) / 255
         let blue = Double.random(in: 0...255) / 255
-        let modifier = 0.1
         
         
         print(red)
@@ -72,9 +69,18 @@ class GameViewModel: ObservableObject {
         print(blue)
         
         self.currentBaseColor = Color(red: red, green: green, blue: blue)
-        self.currentAnswerColor = Color(red: red + modifier, green: green + modifier, blue: blue + modifier)
+        self.currentAnswerColor = Color(red: red + currentModifier, green: green + currentModifier, blue: blue + currentModifier)
     }
     
+    private func generateColumn(level: Int) -> Int{
+        let mod = level % 10
+        
+        if (mod <= 1) {
+            return 2
+        } else {
+            return mod + 1
+        }
+    }
     
     func start(minutes: Float) {
         self.initialTime = Int(minutes)
