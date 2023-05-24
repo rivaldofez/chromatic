@@ -136,8 +136,6 @@ struct GameView: View {
             .onAppear{
                 gameViewModel.generateColor()
                 gameViewModel.generateAnswer()
-                gameViewModel.setShapeStyle(shape: "rectangle")
-                gameViewModel.getShapeStyle()
             }
         }
         

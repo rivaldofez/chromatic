@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct LeaderboardView: View {
+    @EnvironmentObject var gameViewModel: GameViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        Text("Ini Leaderboard view")
+        VStack {
+            BackButtonView {
+                presentationMode.wrappedValue.dismiss()
+            }
+            .padding(.leading)
+        }
     }
 }
 

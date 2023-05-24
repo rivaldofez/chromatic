@@ -58,7 +58,7 @@ struct HomeView: View {
                 .padding(.top, 24)
             
             Button {
-                if(validateForm()){
+                if(isFormValid()){
                     showAlert(isActive: true, message: "Field cannot be empty, please complete all field and try again!")
                 } else {
                     gameViewModel.saveNewUser(username: username) { result in
@@ -79,6 +79,7 @@ struct HomeView: View {
                     .cornerRadius(16)
                     .font(.system(.body).bold())
             }
+            .disabled(!isFormValid())
             .padding(.top, 24)
             .alert(alertErrorMessage, isPresented: $isShowAlert) {
                 Button("OK", role: .cancel){
@@ -98,6 +99,7 @@ struct HomeView: View {
                         .cornerRadius(16)
                         .font(.system(.body).bold())
                 }
+                .disabled(!isFormValid())
                 
                 Button {
                     isShowLeaderboardView = true
@@ -133,8 +135,8 @@ struct HomeView: View {
     }
     
     
-    func validateForm() -> Bool {
-        return username.isEmpty
+    func isFormValid() -> Bool {
+        return !username.isEmpty
     }
     
     func showAlert(isActive: Bool, message: String){
