@@ -22,20 +22,32 @@ struct LeaderboardView: View {
                 .font(.system(.title).bold())
                 .padding(.bottom)
             
-            ScrollView {
-                ForEach(0..<gameViewModel.leaderboards.count, id: \.self){ idx in
-                    
-                    LeaderboardItemView(rank: idx + 1, level: gameViewModel.leaderboards[idx].level, username: gameViewModel.leaderboards[idx].username)
-                    
+            if(gameViewModel.leaderboards.isEmpty) {
+                Spacer()
+                emptyMessage
+            } else {
+                ScrollView {
+                    ForEach(0..<gameViewModel.leaderboards.count, id: \.self){ idx in
+                        
+                        LeaderboardItemView(rank: idx + 1, level: gameViewModel.leaderboards[idx].level, username: gameViewModel.leaderboards[idx].username)
+                        
+                    }
+                    .padding()
                 }
-                .padding(.horizontal)
             }
-            
             Spacer()
         }
         .onAppear {
             gameViewModel.getGameData()
         }
+    }
+    
+    var emptyMessage: some View {
+        Text("No data record yet. Play first to fill these leaderboard")
+            .foregroundColor(.primaryAccentLabel)
+            .font(.system(.title2))
+            .padding()
+            .multilineTextAlignment(.center)
     }
 }
 

@@ -20,7 +20,6 @@ struct GridGameView: View {
         LazyVGrid(columns: columns, spacing: 15) {
             ForEach(1...gameViewModel.currentItemsNum, id: \.self){ number in
                 Button {
-//                    action(true)
                     action(number == gameViewModel.currentAnswer)
                 } label: {
                     
@@ -33,7 +32,7 @@ struct GridGameView: View {
                                 Rectangle()
                                     .foregroundColor(number == gameViewModel.currentAnswer ? gameViewModel.currentAnswerColor : gameViewModel.currentBaseColor)
                             }
-                            
+                        
                     }
                     
                     
@@ -50,10 +49,10 @@ struct GridGameView: View {
     }
 }
 
-//struct GameGridItem_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GridGameView(numColumn: .constant(10), answer: 20, baseColor: .red, answerColor: .blue, action: { result in
-//
-//        })
-//    }
-//}
+struct GameGridItem_Previews: PreviewProvider {
+    static var previews: some View {
+        GridGameView { resultAnswer in
+            
+        }.environmentObject(GameViewModel())
+    }
+}

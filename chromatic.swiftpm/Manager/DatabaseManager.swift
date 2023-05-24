@@ -71,7 +71,7 @@ class DatabaseManager {
         let dataGame = realm.objects(GameEntity.self)
             .sorted(byKeyPath: "level", ascending: false)
             .where { $0.username == username }
-            
+        
         
         return dataGame.map { $0 }.first
     }

@@ -116,11 +116,11 @@ struct HomeView: View {
                         .cornerRadius(16)
                         .font(.system(.body).bold())
                 }
-
-
+                
+                
             }
             .padding(.top, 24)
-
+            
         }
         .fullScreenCover(isPresented: $isShowGameView, content: {
             GameView()
@@ -135,7 +135,7 @@ struct HomeView: View {
         .onAppear {
             gameViewModel.getThemeStyle()
         }
-
+        
     }
     
     func isFormValid() -> Bool {

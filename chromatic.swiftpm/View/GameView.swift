@@ -46,23 +46,23 @@ struct GameView: View {
                         .overlay{
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.primaryAccent)
-
+                            
                         }
                         .padding()
-                        
+                    
                     GridGameView { result in
-                            if result{
-                                    gameViewModel.currentLevel = gameViewModel.currentLevel + 1
-                            } else {
-                                gameViewModel.addNewGame()
-                                gameViewModel.reset()
-                                gameViewModel.isShowResult = true
-                                
-                            }
+                        if result{
+                            gameViewModel.currentLevel = gameViewModel.currentLevel + 1
+                        } else {
+                            gameViewModel.addNewGame()
+                            gameViewModel.reset()
+                            gameViewModel.isShowResult = true
+                            
+                        }
                     }
                     .disabled(!gameViewModel.isActive)
                     .frame(height: screen.size.height / 2)
-                        
+                    
                     
                     
                     if gameViewModel.isActive {
@@ -71,7 +71,7 @@ struct GameView: View {
                                 withAnimation {
                                     isShowAlertRestart = true
                                 }
-                            
+                                
                             } label: {
                                 Text("Restart")
                                     .padding()

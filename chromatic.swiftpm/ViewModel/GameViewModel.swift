@@ -31,9 +31,9 @@ class GameViewModel: ObservableObject {
         didSet {
             generateColor()
             generateAnswer()
-                currentColumnNum = generateColumn(level: currentLevel)
-                currentItemsNum = currentColumnNum * currentColumnNum
-                currentModifier = currentModifier - ((Double(currentLevel / 10)) / 100)
+            currentColumnNum = generateColumn(level: currentLevel)
+            currentItemsNum = currentColumnNum * currentColumnNum
+            currentModifier = currentModifier - ((Double(currentLevel / 10)) / 100)
             getShapeStyle()
         }
     }
@@ -58,16 +58,11 @@ class GameViewModel: ObservableObject {
     func generateAnswer(){
         self.currentAnswer = Int.random(in: 1...currentItemsNum)
     }
-
+    
     func generateColor(){
         let red = Double.random(in: 0...255) / 255
         let green = Double.random(in: 0...255) / 255
         let blue = Double.random(in: 0...255) / 255
-        
-        
-        print(red)
-        print(green)
-        print(blue)
         
         self.currentBaseColor = Color(red: red, green: green, blue: blue)
         self.currentAnswerColor = Color(red: red + currentModifier, green: green + currentModifier, blue: blue + currentModifier)
