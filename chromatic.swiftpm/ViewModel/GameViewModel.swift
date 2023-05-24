@@ -135,6 +135,7 @@ class GameViewModel: ObservableObject {
     
     func setShapeStyle(shape: String){
         UserDefaults.standard.set(shape, forKey: "shape")
+        getShapeStyle()
     }
     
 }
