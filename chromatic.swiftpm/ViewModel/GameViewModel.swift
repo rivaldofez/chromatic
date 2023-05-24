@@ -19,7 +19,8 @@ class GameViewModel: ObservableObject {
         }
     }
     
-    @Published var currentUsername: String = ""
+    @Published var leaderboards: [GameEntity] = []
+    
     
     private var initialTime = 0
     private var endDate = Date()
@@ -35,6 +36,8 @@ class GameViewModel: ObservableObject {
             
         }
     }
+    
+    @Published var currentUsername: String = ""
     @Published var currentColumnNum: Int = 2
     @Published var currentItemsNum: Int = 4
     @Published var currentBaseColor: Color = .red
@@ -136,6 +139,10 @@ class GameViewModel: ObservableObject {
     func setShapeStyle(shape: String){
         UserDefaults.standard.set(shape, forKey: "shape")
         getShapeStyle()
+    }
+    
+    func getGameData(){
+        self.leaderboards = DatabaseManager.shared.getGameData()
     }
     
 }

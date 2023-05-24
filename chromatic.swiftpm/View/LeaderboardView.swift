@@ -20,52 +20,21 @@ struct LeaderboardView: View {
             
             Text("App Settings")
                 .font(.system(.title).bold())
+                .padding(.bottom)
             
             ScrollView {
-                ForEach(1...100, id: \.self){ num in
-                    HStack {
-                        Text("\(num)")
-                            .font(.system(size: 11).weight(.light))
-                            .frame(width: 30, height: 30)
-                            .background(
-                                Circle()
-                                    .fill(.gray)
-                            )
-                            .padding(20)
-                            .background(Color.primaryAccent)
-                        
-                        Image(systemName: "person")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.white)
-                            .padding(10)
-                            .background(.blue)
-                            .clipShape(Circle())
-                        
-                        Text("Rivaldo Fernandes")
-                            .font(.system(.body))
-                            .foregroundColor(.primaryLabel)
-                            .padding(.horizontal)
-                        
-                        Spacer()
-                        
-                        Divider()
-                        
-                        Text("Lv.1")
-                            .font(.system(.body))
-                            .foregroundColor(.primaryLabel)
-                            .padding(.horizontal)
-                        
-                        
-                        
-                    }
-                    .cornerRadius(16)
+                ForEach(0..<gameViewModel.leaderboards.count, id: \.self){ idx in
+                    
+                    LeaderboardItemView(rank: idx + 1, level: gameViewModel.leaderboards[idx].level, username: gameViewModel.leaderboards[idx].username)
+                    
                 }
                 .padding(.horizontal)
             }
             
             Spacer()
+        }
+        .onAppear {
+            gameViewModel.getGameData()
         }
     }
 }

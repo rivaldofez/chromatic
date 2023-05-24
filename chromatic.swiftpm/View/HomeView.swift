@@ -59,8 +59,6 @@ struct HomeView: View {
             
             Button {
                 if(isFormValid()){
-                    showAlert(isActive: true, message: "Field cannot be empty, please complete all field and try again!")
-                } else {
                     gameViewModel.saveNewUser(username: username) { result in
                         switch(result) {
                         case .success():
@@ -69,6 +67,11 @@ struct HomeView: View {
                             showAlert(isActive: true, message: "Error occured while attempt user with that username, please try again.")
                         }
                     }
+                } else {
+                    showAlert(isActive: true, message: "Field cannot be empty, please complete all field and try again!")
+                    
+                    
+                    
                 }
             } label: {
                 Text("Start")
