@@ -107,7 +107,7 @@ struct SettingsView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(.gray.opacity(0.3), lineWidth: 1)
+                    .stroke(Color.primaryGray.opacity(0.3), lineWidth: 1)
             )
             .padding(.horizontal)
             .padding(.vertical)
@@ -182,7 +182,7 @@ struct SettingsView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(.gray.opacity(0.3), lineWidth: 1)
+                    .stroke(Color.primaryGray.opacity(0.3), lineWidth: 1)
             )
             .padding(.horizontal)
         }

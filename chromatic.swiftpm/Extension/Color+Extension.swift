@@ -13,7 +13,7 @@ extension Color {
     static let primaryAccentLabel = Color("PrimaryAccentLabel")
     static let primaryLabel = Color("PrimaryLabel")
     static let primaryButtonLabel = Color("PrimaryButtonLabel")
-    static let gray = Color("Gray")
+    static let primaryGray = Color("PrimaryGray")
     
     static let darkGold = Color("DarkGold")
     static let darkSilver = Color("DarkSilver")

@@ -17,7 +17,7 @@ struct ContentView: View {
                 .cornerRadius(20)
                 .overlay {
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray, lineWidth: 4)
+                        .stroke(Color.primaryGray, lineWidth: 4)
                 }
                 .alert("Timer Done!", isPresented: $vm.isShowResult) {
                     Button("Continue", role: .cancel){

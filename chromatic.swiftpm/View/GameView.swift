@@ -41,7 +41,7 @@ struct GameView: View {
                         .padding(.vertical, 12)
                         .frame(width: 150)
                         .foregroundColor(.primaryAccent)
-                        .background(.gray.opacity(0.2))
+                        .background(Color.primaryGray.opacity(0.2))
                         .cornerRadius(16)
                         .overlay{
                             RoundedRectangle(cornerRadius: 16)

@@ -45,7 +45,7 @@ struct LeaderboardItemView: View {
         }
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.gray, lineWidth: 1)
+                .stroke(Color.primaryGray, lineWidth: 1)
         )
     }
     
@@ -64,13 +64,13 @@ struct LeaderboardItemView: View {
                     .fill(
                         rank == 1 ? Color.gold :
                             (rank == 2 ? Color.silver :
-                                (rank == 3 ? Color.bronze : .gray.opacity(0.4))
+                                (rank == 3 ? Color.bronze : .primaryGray.opacity(0.4))
                             )
                     )
             )
             .padding(20)
             
-            .background(.gray.opacity(0.1))
+            .background(Color.primaryGray.opacity(0.1))
             .cornerRadius(16, corners: [.topLeft, .bottomLeft])
     }
 }

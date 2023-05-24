@@ -77,8 +77,8 @@ struct HomeView: View {
                 Text("Start")
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(isFormValid() ? Color.primaryAccent : Color.gray.opacity(0.5))
-                    .foregroundColor(isFormValid() ? .primaryButtonLabel : .gray)
+                    .background(isFormValid() ? Color.primaryAccent : Color.primaryGray.opacity(0.5))
+                    .foregroundColor(isFormValid() ? .primaryButtonLabel : .primaryGray)
                     .cornerRadius(16)
                     .font(.system(.body).bold())
             }
@@ -98,8 +98,8 @@ struct HomeView: View {
                     Text("Settings")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(isFormValid() ? Color.primaryAccent : Color.gray.opacity(0.5))
-                        .foregroundColor(isFormValid() ? .primaryButtonLabel : .gray)
+                        .background(isFormValid() ? Color.primaryAccent : Color.primaryGray.opacity(0.5))
+                        .foregroundColor(isFormValid() ? .primaryButtonLabel : .primaryGray)
                         .cornerRadius(16)
                         .font(.system(.body).bold())
                 }

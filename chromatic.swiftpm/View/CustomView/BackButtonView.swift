@@ -18,7 +18,7 @@ struct BackButtonView: View {
                 .frame(width: 25, height: 25)
                 .padding()
                 .foregroundColor(.primaryAccent)
-                .background(.gray.opacity(0.2))
+                .background(Color.primaryGray.opacity(0.2))
                 .clipShape(Circle())
         }
         .hLeading()
