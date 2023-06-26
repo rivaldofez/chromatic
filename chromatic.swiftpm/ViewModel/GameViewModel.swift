@@ -44,7 +44,7 @@ class GameViewModel: ObservableObject {
     @Published var currentBaseColor: Color = .red
     @Published var currentAnswerColor: Color = .blue
     @Published var currentAnswer: Int = -1
-    @Published var currentModifier: Double = 0.4
+    @Published var currentModifier: Double = 0.3
     @Published var currentShapeStyle: String = "circle"
     @Published var currentThemeStyle: Bool = true
     

@@ -37,7 +37,7 @@ struct LeaderboardItemView: View {
             Divider()
             
             Text("Lv.\(level)")
-                .frame(width: 40, height: 30)
+                .frame(width: 55, height: 30)
                 .font(.system(.body))
                 .foregroundColor(.primaryLabel)
                 .padding()
@@ -64,7 +64,7 @@ struct LeaderboardItemView: View {
                     .fill(
                         rank == 1 ? Color.gold :
                             (rank == 2 ? Color.silver :
-                                (rank == 3 ? Color.bronze : .primaryGray.opacity(0.4))
+                                (rank == 3 ? Color.bronze : .primaryGray.opacity(0.2))
                             )
                     )
             )
