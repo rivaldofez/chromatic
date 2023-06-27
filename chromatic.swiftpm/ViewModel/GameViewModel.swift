@@ -83,6 +83,8 @@ class GameViewModel: ObservableObject {
         self.endDate = Date()
         self.isActive = true
         self.endDate = Calendar.current.date(byAdding: .minute, value: Int(minutes), to: endDate)!
+        
+        self.currentModifier = 0.3
     }
     
     func reset() {
