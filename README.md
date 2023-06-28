@@ -3,7 +3,6 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -47,7 +46,7 @@
 
 <p align="middle">
   <img src="Images/Image_1.png" width="150" />
-  <img src="Images/image_2.png" width="150" /> 
+  <img src="Images/Image_2.png" width="150" /> 
   <img src="Images/Image_3.png" width="150" />
   <img src="Images/Image_4.png" width="150" /> 
   <img src="Images/Image_5.png" width="150" />
@@ -56,7 +55,7 @@
   <img src="Images/Image_8.png" width="150" /> 
   <img src="Images/Image_9.png" width="150" />
 </p>
-<p>
+<p align="middle">
   <img src="Images/Image_12.png" width="150" /> 
   <img src="Images/Image_13.png" width="150" />
   <img src="Images/Image_14.png" width="150" /> 
