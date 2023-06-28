@@ -46,24 +46,24 @@
 ## About The Project
 
 <p align="middle">
-  <img src="images/image_1.png" width="150" />
-  <img src="images/image_2.png" width="150" /> 
-  <img src="images/image_3.png" width="150" />
-  <img src="images/image_4.png" width="150" /> 
-  <img src="images/image_5.png" width="150" />
-  <img src="images/image_6.png" width="150" /> 
-  <img src="images/image_7.png" width="150" />
-  <img src="images/image_8.png" width="150" /> 
-  <img src="images/image_9.png" width="150" />
+  <img src="Images/Image_1.png" width="150" />
+  <img src="Images/image_2.png" width="150" /> 
+  <img src="Images/Image_3.png" width="150" />
+  <img src="Images/Image_4.png" width="150" /> 
+  <img src="Images/Image_5.png" width="150" />
+  <img src="Images/Image_6.png" width="150" /> 
+  <img src="Images/Image_7.png" width="150" />
+  <img src="Images/Image_8.png" width="150" /> 
+  <img src="Images/Image_9.png" width="150" />
 </p>
 <p>
-  <img src="images/image_12.png" width="150" /> 
-  <img src="images/image_13.png" width="150" />
-  <img src="images/image_14.png" width="150" /> 
-  <img src="images/image_15.png" width="150" />
-  <img src="images/image_16.png" width="150" /> 
-  <img src="images/image_17.png" width="150" />
-  <img src="images/image_18.png" width="150" />   
+  <img src="Images/Image_12.png" width="150" /> 
+  <img src="Images/Image_13.png" width="150" />
+  <img src="Images/Image_14.png" width="150" /> 
+  <img src="Images/Image_15.png" width="150" />
+  <img src="Images/Image_16.png" width="150" /> 
+  <img src="Images/Image_17.png" width="150" />
+  <img src="Images/Image_18.png" width="150" />   
 </p>
 
 Chromatic is an app to text your sight and color perception. This application generate a set of color each level and give nxn color button which only one have a different color from others. Your challenge is to guess the button that have different color. To guess the button, you only have 1 minute :)
